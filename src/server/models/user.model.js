@@ -8,11 +8,6 @@ const userSchema = new mongoose.Schema({
     unique: true,
     lowercase: true,
   },
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   name: {
     type: String,
     required: true,
@@ -21,11 +16,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     select: false,
-  },
-  role: {
-    type: String,
-    enum: ["user", "admin"],
-    default: "user",
   },
   profileImage: {
     data: Buffer,
