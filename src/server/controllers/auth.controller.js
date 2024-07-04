@@ -42,6 +42,7 @@ async function register(req, res) {
   const email = req.body.email;
   const name = req.body.name;
   const password = req.body.password;
+  const profileImage = req.file;
 
   const user = await userModel.findOne({ email: email.toLowerCase() });
   if (user) {
@@ -53,7 +54,7 @@ async function register(req, res) {
     email,
     name,
     password: passwordHash,
-    profileImage: null,
+    profileImage: profileImage ? profileImage.buffer : null,
   });
 
   return res.status(200).send({ userSaved });
