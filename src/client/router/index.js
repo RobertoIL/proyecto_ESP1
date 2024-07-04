@@ -23,6 +23,16 @@ const router = createRouter({
       name: "game",
       component: () => import("../views/GameView.vue"),
     },
+    {
+      path: "/wiki",
+      name: "wiki",
+      component: () => import("../views/WikiView.vue"),
+    },
+    {
+      path: "/historial",
+      name: "historial",
+      component: () => import("../views/RecordView.vue"),
+    },
   ],
 });
 
