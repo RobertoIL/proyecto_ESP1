@@ -4,7 +4,7 @@ export default class SelectionScene extends Phaser.Scene {
     super({ key: "SelectionScene" });
   }
   preload() {
-    this.load.image("boton", "public/Botones/Boton.png");
+    this.load.image("Lock", "public/Botones/Ok-Check.png");
 
     this.load.image(
       "Boton-Izquierda",
@@ -12,6 +12,9 @@ export default class SelectionScene extends Phaser.Scene {
     );
     this.load.image("Boton-Derecha", "public/Botones/Boton-Flecha-Derecha.png");
     this.load.image("Boton-Lock", "public/Botones/Boton-Listo.png");
+    this.load.image("Izquierda-Pulsada", "public/Botones/Boton-Pulsado-Izquierda.png");
+    this.load.image("Derecha-Pulsada", "public/Botones/Boton-Pulsado-Derecha.png");
+    this.load.image("Listo-Pulsado", "public/Botones/Boton-Pulsado-Listo.png");
 
     this.load.image("Saber-solo", "public/Saber/Saber1.png");
     this.load.image("Archer-solo", "public/Archer/Archer1.png");
