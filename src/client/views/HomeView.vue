@@ -19,23 +19,5 @@
                 </div>
             </div>
         </div>
-        <div class="bg-gray-800 w-full pb-24 py-10 flex items-center justify-center">
-            <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
-                    <div class="mx-auto flex max-w-xs flex-col gap-y-4">
-                        <dd class="order-first text-4xl font-semibold tracking-tight text-white sm:text-5xl drop-shadow-lg">44 million</dd>
-                        <dt class="text-base leading-7 text-gray-300">Transacciones cada 24 horas</dt>
-                    </div>
-                    <div class="mx-auto flex max-w-xs flex-col gap-y-4">
-                        <dd class="order-first text-4xl font-semibold tracking-tight text-white sm:text-5xl drop-shadow-lg">$119,000</dd>
-                        <dt class="text-base leading-7 text-gray-300">Inversión</dt>
-                    </div>
-                    <div class="mx-auto flex max-w-xs flex-col gap-y-4">
-                        <dd class="order-first text-4xl font-semibold tracking-tight text-white sm:text-5xl drop-shadow-lg">46,000</dd>
-                        <dt class="text-base leading-7 text-gray-300">Nuevos usuarios</dt>
-                    </div>
-                </dl>
-            </div>
-        </div>
     </main>
 </template>

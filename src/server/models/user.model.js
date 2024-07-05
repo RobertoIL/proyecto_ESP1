@@ -21,6 +21,12 @@ const userSchema = new mongoose.Schema({
     data: Buffer,
     contentType: String,
   },
+  historiales: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Historial",
+    },
+  ],
 });
 
 userSchema.pre("updateOne", async function (next) {

@@ -1,3 +1,4 @@
+import router from "../router";
 export default class mainScene extends Phaser.Scene {
   constructor() {
     super({ key: "MainScene" });
@@ -60,6 +61,7 @@ export default class mainScene extends Phaser.Scene {
 
     this.boton3.on("pointerdown", function () {
       this.setTexture("pulsar-salir");
+      router.push({ name: "home" });
     });
     this.boton3.on("pointerup", function () {
       this.setTexture("boton-salir");

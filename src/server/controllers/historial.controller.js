@@ -27,4 +27,14 @@ async function getHistorial(req, res) {
   }
 }
 
-export { createHistorial, getHistorial };
+async function deleteHistorial(req, res) {
+  const { userId } = req.params;
+  try {
+    await Historial.deleteMany({ User: userId });
+    res.status(200).json({ message: "Historial deleted" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting historial" });
+  }
+}
+
+export { createHistorial, getHistorial, deleteHistorial };

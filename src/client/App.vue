@@ -1,7 +1,7 @@
 <template>
-  <Navbar v-if="isAuthenticated"/>
+  <Navbar v-if="!isLoginOrRegister"/>
   <RouterView class="min-h-screen" />
-  <Footer />
+  <Footer v-if="!isLoginOrRegister" />
 </template>
 
 <script>
@@ -16,6 +16,9 @@ export default {
   computed: {
     isAuthenticated() {
       return true;
+    },
+    isLoginOrRegister() {
+      return this.$route.path === '/login' || this.$route.path === '/register';
     }
   }
 }
