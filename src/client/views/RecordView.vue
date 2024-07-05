@@ -15,17 +15,17 @@
         Descargar historial
       </button>
     </div>
-    <div class="flex flex-col justify-center items-center space-y-4 border-slate-200" v-for="(registro, index) in historial" :key="index">
-      <div class="flex space-x-2">
+    <div class="flex flex-col items-center space-y-2 pb-8 border-slate-200" v-for="(registro, index) in historial" :key="index">
+      <div class="flex space-x-2 items-center">
         <div>{{ registro.jugador1 }}</div>
         <p class="font-bold text-lg text-yellow-300">VS</p>
         <div>{{ registro.jugador2 }}</div>
       </div>
-      <div class="flex">
+      <div class="flex items-center">
         <p class="font-bold px-2">Ganador:</p>
         {{ registro.ganador }}
       </div>
-      <div class="flex">
+      <div class="flex item-center">
         {{ new Date(registro.fecha).toLocaleString() }}
       </div>
     </div>
