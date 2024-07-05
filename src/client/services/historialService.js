@@ -16,20 +16,6 @@ const historialService = {
       throw error;
     }
   },
-
-  async addHistorial(historial) {
-    try {
-      const userId = store.getUserId;
-      const response = await axios.post(
-        `http://localhost:3000/historial/${userId}`,
-        historial
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error adding historial:", error);
-      throw error;
-    }
-  },
 };
 
 export default historialService;

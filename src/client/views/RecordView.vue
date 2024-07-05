@@ -38,9 +38,9 @@
 </template>
 
 <script>
-import axios from "axios";
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import historialService from "../services/historialService";
 export default {
   name: "RecordView",
   data() {
@@ -53,12 +53,9 @@ export default {
   },
   methods: {
     async cargarHistorial() {
-      try {
-        const response = await axios.get('http://localhost:3000/historial/all');
-        this.historial = response.data; 
-      } catch (error) {
-            console.error("Error al cargar el historial:", error);
-      }
+      historialService.getHistorial().then((response) => {
+        this.historial = response.data;
+      });
     },
     async exportToPDF() {
       const content = this.$refs.contentToExport;
