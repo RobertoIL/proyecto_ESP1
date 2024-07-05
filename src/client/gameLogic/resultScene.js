@@ -1,5 +1,6 @@
 import connectDB from "@/server/config/mongo";
 import GResult from "@/server/models/gameResult.model";
+import User from "@/server/models/user.model";
 
 export default class ResultScene extends Phaser.Scene{
     constructor(){
@@ -20,10 +21,10 @@ export default class ResultScene extends Phaser.Scene{
 
         guardarResultado({
             "ganador": this.ganador,
-            "perdedor": "perdedor",
+            "perdedor": this.perdedor,
             "claseGanadora": this.claseGanador,
-            "clasePerdedora": "asd",
-            "tiempo": 100,
+            "clasePerdedora": this.clasePerdedora,
+            "tiempo": this.tiempo,
             "hp": this.vidaRestante,
         });
     }
@@ -31,15 +32,21 @@ export default class ResultScene extends Phaser.Scene{
     }
     init(data){
         this.ganador = data.winner;
+        this.perdedor = data.loser;
         this.claseGanador = data.classW;
+        this.clasePerdedora = data.classL;
+        this.tiempo = data.time;
         this.vidaRestante = data.hp;
     }
 }
 async function guardarResultado(data) {
     try{
+        const ganador = await buscarUsuario(data.ganador);
+        const perdedor = await buscarUsuario(data.perdedor);
+
         const nuevoJuego = new GResult({
-            "ganador": data.ganador,
-            "perdedor": data.perdedor,
+            "ganador": ganador,
+            "perdedor": perdedor,
             "claseGanadora": data.claseGanador,
             "clasePerdedora": data.clasePerdedora,
             "tiempo": data.tiempo,
@@ -47,6 +54,15 @@ async function guardarResultado(data) {
         })
         await nuevoJuego.save();
     }catch{
-
+        console.log("No se ha podido generar el resultado.");
+    }
+}
+async function buscarUsuario(username) {
+    try {
+      const usuario = await User.findOne({ username: username }).exec();
+      return usuario;
+    } catch (error) {
+      console.error('Error buscando usuario por username:', error);
+      return null;
     }
 }

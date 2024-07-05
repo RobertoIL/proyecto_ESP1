@@ -445,7 +445,10 @@ export default class GameScene extends Phaser.Scene {
       this.hp[0] = 0;
       this.scene.launch("ResultScene", {
         winner: "Jugador 2",
+        loser: "Jugador 1",
         classW: this.player2Class,
+        classL: this.player1Class,
+        time: this.time.now*1000,
         hp: this.hp[1],
       });
       this.scene.pause();
@@ -453,13 +456,17 @@ export default class GameScene extends Phaser.Scene {
       this.hp[1] = 0;
       this.scene.launch("ResultScene", {
         winner: "Jugador 1",
+        loser: "Jugador 2",
         classW: this.player1Class,
+        classL: this.player2Class,
+        time: this.time.now*1000,
         hp: this.hp[0],
       });
       this.scene.pause();
     }
   }
   init(data) {
+    //Falta guardar los valores de Usuario logueado y posible usuario en contra.
     const player1 = data.player1.texture.key.replace("-solo", "");
     const player2 = data.player2.texture.key.replace("-solo", "");
 
