@@ -2,6 +2,8 @@ import userModel from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config/environment.js";
+import router from "@/client/router/index.js";
+const store = useAuthStore();
 
 async function login(req, res) {
   const { email, password } = req.body;

@@ -42,10 +42,11 @@ const repeatPassword = ref('');
 
 const register = async () => {
   try {
-    const formData = new FormData();
-    formData.append('name', name.value);
-    formData.append('email', email.value);
-    formData.append('password', password.value);
+    const formData = {
+      name: name.value,
+      email: email.value,
+      password: password.value,
+    }
     //formData.append('repeatPassword', repeatPassword.value);
 
     await authService.register(formData);
@@ -55,6 +56,27 @@ const register = async () => {
     // Handle registration error (e.g., show error message to user)
   }
 };
+
+
+// const register = async () => {
+//       try {
+//         const formData = {
+//           name: name.value,
+//           email: email.value,
+//           password: password.value,
+//         }
+//         //formData.append('repeatPassword', this.repeatPassword);
+
+//         await axios.post('http://localhost:3000/auth/register', 
+//         formData
+//         );
+//         // Manejar la respuesta, como redirigir al usuario o mostrar un mensaje de éxito
+//       }
+//       catch (error) {
+//         console.error(error);
+//         // Manejar errores, como mostrar un mensaje al usuario
+//       }
+// };
 
 
 </script>
