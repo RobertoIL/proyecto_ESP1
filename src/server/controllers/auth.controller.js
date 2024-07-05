@@ -26,10 +26,10 @@ async function login(req, res) {
 
   return res.status(200).send({
     token,
-    user: {
-      email: user.email,
-      name: user.name,
-    },
+    userId: user._id,
+    email: user.email,
+    name: user.name,
+    email: user.email,
   });
 }
 
@@ -48,7 +48,16 @@ async function register(req, res) {
     password: passwordHash,
   });
 
-  return res.status(200).send({ userSaved });
+  return res.status(200).send({
+    userId: userSaved._id,
+    email: userSaved.email,
+    name: userSaved.name,
+    token: jwt.sign(
+      { userId: userSaved._id, email: userSaved.email },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    ),
+  });
 }
 
 export { register, login };

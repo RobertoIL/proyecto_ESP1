@@ -21,24 +21,23 @@ export default class ResultScene extends Phaser.Scene {
   }
   update(time, delta) {}
   init(data) {
+    this.guardarHistorial();
     this.ganador = data.winner;
     this.claseGanador = data.classW;
     this.vidaRestante = data.hp;
     this.jugador2 = "Invitado";
-    if(this.ganador != "Invitado"){
+    if (this.ganador != "Invitado") {
       this.jugador1 = this.ganador;
-    }else{
+    } else {
       this.jugador1 = data.loser;
     }
   }
 
   guardarHistorial() {
-    const store = useAuthStore();
     const historial = {
       jugador1: this.jugador1,
       jugador2: this.jugador2,
       ganador: this.ganador,
-      user: store.getUserId,
     };
     historialService.addHistorial(historial);
   }

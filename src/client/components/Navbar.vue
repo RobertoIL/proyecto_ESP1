@@ -26,5 +26,5 @@ import ProfileCard from "./miniComponents/ProfileCard.vue";
 import { useAuthStore } from "../stores/authStore.js";
 
 const store = useAuthStore();
-const isAuthenticated = store.isAuthenticated;
+const isAuthenticated = store.getAuthenticated;
 </script>

@@ -7,6 +7,8 @@
 <script>
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
+import { useAuthStore } from './stores/authStore';
+import { onMounted } from 'vue';
 
 export default {
   components: {
@@ -20,6 +22,13 @@ export default {
     isLoginOrRegister() {
       return this.$route.path === '/login' || this.$route.path === '/register';
     }
+  },
+  setup() {
+    const authStore = useAuthStore();
+
+    onMounted(() => {
+      authStore.checkSession();
+    });
   }
 }
 </script>

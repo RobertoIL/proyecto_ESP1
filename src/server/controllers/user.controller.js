@@ -46,4 +46,5 @@ async function deleteAccount(req, res) {
       .send({ message: "Error deleting account", error: error.message });
   }
 }
+
 export { modifyProfile, deleteAccount };

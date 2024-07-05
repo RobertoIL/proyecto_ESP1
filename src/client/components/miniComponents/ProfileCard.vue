@@ -22,7 +22,7 @@
 
 <script setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import {useAuthStore} from '../../stores/authStore.js';
+import { useAuthStore } from '@/client/stores/authStore';
 import authService from '@/client/services/authService.js';
 
 const store = useAuthStore();

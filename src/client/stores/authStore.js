@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-export const useAuthStore = defineStore("auth", {
+export const useAuthStore = defineStore("authStore", {
   state: () => ({
     email: "",
     name: "",
@@ -11,19 +11,19 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     setAuthenticated(value) {
       this.isAuthenticated = value;
-      sessionStorage.setItem("isAuthenticated", value.toString());
+      localStorage.setItem("isAuthenticated", value.toString());
     },
     setName(name) {
       this.name = name;
-      sessionStorage.setItem("name", name);
+      localStorage.setItem("name", name);
     },
     setToken(token) {
       this.token = token;
-      sessionStorage.setItem("token", token);
+      localStorage.setItem("token", token);
     },
     setEmail(email) {
       this.email = email;
-      sessionStorage.setItem("email", email);
+      localStorage.setItem("email", email);
     },
     setUserId(userId) {
       this.userId = userId;
@@ -40,14 +40,14 @@ export const useAuthStore = defineStore("auth", {
       this.setEmail("");
       this.setName("");
       this.setUserId("");
-      sessionStorage.clear(); // Simplified session storage cleanup
+      localStorage.clear();
     },
     checkSession() {
-      const isAuthenticated = sessionStorage.getItem("isAuthenticated");
-      const token = sessionStorage.getItem("token");
-      const email = sessionStorage.getItem("email");
-      const name = sessionStorage.getItem("name");
-      const userId = sessionStorage.getItem("userId");
+      const isAuthenticated = localStorage.getItem("isAuthenticated");
+      const token = localStorage.getItem("token");
+      const email = localStorage.getItem("email");
+      const name = localStorage.getItem("name");
+      const userId = localStorage.getItem("userId");
 
       if (isAuthenticated && token && email && name && userId) {
         this.setAuthenticated(isAuthenticated === "true");

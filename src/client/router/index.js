@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useAuthStore } from "../stores/authStore";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,18 +23,34 @@ const router = createRouter({
       path: "/game",
       name: "game",
       component: () => import("../views/GameView.vue"),
+      meta: { requiresAuth: true },
     },
     {
       path: "/wiki",
       name: "wiki",
       component: () => import("../views/WikiView.vue"),
+      meta: { requiresAuth: true },
     },
     {
       path: "/historial",
       name: "historial",
       component: () => import("../views/RecordView.vue"),
+      meta: { requiresAuth: true },
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+  if (to.meta.requiresAuth) {
+    if (!authStore.isAuthenticated) {
+      next("/login");
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

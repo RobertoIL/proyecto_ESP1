@@ -11,7 +11,7 @@ const authService = {
         user
       );
       if (response.status === 200) {
-        const { userId, email, name, token, profileImage } = response.data;
+        const { userId, email, name, token } = response.data;
         authStore.loginSuccess(name, token);
         authStore.setEmail(email);
         authStore.setUserId(userId);
@@ -36,11 +36,9 @@ const authService = {
       );
 
       if (response.status === 200) {
-        const { userId, email, name, token, profileImage } = response.data;
+        const { userId, email, name, token } = response.data;
         const authStore = useAuthStore();
-        //authStore.loginSuccess(name, token);
-        authStore.setName(name);
-        authStore.setToken(token);
+        authStore.loginSuccess(name, token);
         authStore.setEmail(email);
         authStore.setUserId(userId);
         router.push({ name: "home" }); // Redirect to home after successful registration
