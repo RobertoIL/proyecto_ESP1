@@ -21,28 +21,20 @@ async function login(req, res) {
   }
 
   const token = jwt.sign({ userId: user._id, email: user.email }, JWT_SECRET, {
-    expiresIn: "1m",
+    expiresIn: "1h",
   });
-
-  const profileImageBase64 = user.profileImage
-    ? user.profileImage.data.toString("base64")
-    : null;
 
   return res.status(200).send({
     token,
     user: {
       email: user.email,
       name: user.name,
-      profileImage: profileImageBase64,
     },
   });
 }
 
 async function register(req, res) {
-  const email = req.body.email;
-  const name = req.body.name;
-  const password = req.body.password;
-  const profileImage = req.file;
+  const { email, name, password } = req.body;
 
   const user = await userModel.findOne({ email: email.toLowerCase() });
   if (user) {
@@ -51,10 +43,9 @@ async function register(req, res) {
   const passwordHash = await bcrypt.hash(password, 10);
 
   const userSaved = await userModel.create({
-    email,
+    email: email.toLowerCase(),
     name,
     password: passwordHash,
-    profileImage: profileImage ? profileImage.buffer : null,
   });
 
   return res.status(200).send({ userSaved });

@@ -5,14 +5,13 @@ export const useAuthStore = defineStore("auth", {
     email: "",
     name: "",
     token: "",
-    profileImage: "", // Añadir imagen de perfil
     isAuthenticated: false,
     userId: "",
   }),
   actions: {
     setAuthenticated(value) {
       this.isAuthenticated = value;
-      sessionStorage.setItem("isAuthenticated", value);
+      sessionStorage.setItem("isAuthenticated", value.toString());
     },
     setName(name) {
       this.name = name;
@@ -30,11 +29,7 @@ export const useAuthStore = defineStore("auth", {
       this.userId = userId;
       sessionStorage.setItem("userId", userId);
     },
-    setProfileImage(profileImage) {
-      this.profileImage = profileImage;
-      sessionStorage.setItem("profileImage", profileImage);
-    },
-    loginSucces(name, token, role) {
+    loginSuccess(name, token) {
       this.setAuthenticated(true);
       this.setName(name);
       this.setToken(token);
@@ -45,13 +40,7 @@ export const useAuthStore = defineStore("auth", {
       this.setEmail("");
       this.setName("");
       this.setUserId("");
-      this.setProfileImage(""); // Limpiar imagen de perfil
-      sessionStorage.removeItem("isAuthenticated");
-      sessionStorage.removeItem("token");
-      sessionStorage.removeItem("email");
-      sessionStorage.removeItem("name");
-      sessionStorage.removeItem("userId");
-      sessionStorage.removeItem("profileImage");
+      sessionStorage.clear(); // Simplified session storage cleanup
     },
     checkSession() {
       const isAuthenticated = sessionStorage.getItem("isAuthenticated");
@@ -59,7 +48,6 @@ export const useAuthStore = defineStore("auth", {
       const email = sessionStorage.getItem("email");
       const name = sessionStorage.getItem("name");
       const userId = sessionStorage.getItem("userId");
-      const profileImage = sessionStorage.getItem("profileImage");
 
       if (isAuthenticated && token && email && name && userId) {
         this.setAuthenticated(isAuthenticated === "true");
@@ -67,7 +55,6 @@ export const useAuthStore = defineStore("auth", {
         this.setEmail(email);
         this.setName(name);
         this.setUserId(userId);
-        this.setProfileImage(profileImage);
       }
     },
   },
@@ -77,6 +64,5 @@ export const useAuthStore = defineStore("auth", {
     getName: (state) => state.name,
     getUserId: (state) => state.userId,
     getToken: (state) => state.token,
-    getProfileImage: (state) => state.profileImage,
   },
 });

@@ -17,10 +17,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     select: false,
   },
-  profileImage: {
-    data: Buffer,
-    contentType: String,
-  },
   historiales: [
     {
       type: mongoose.Schema.Types.ObjectId,

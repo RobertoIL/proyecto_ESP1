@@ -12,10 +12,9 @@ const authService = {
       );
       if (response.status === 200) {
         const { userId, email, name, token, profileImage } = response.data;
-        authStore.loginSucces(name, token);
+        authStore.loginSuccess(name, token);
         authStore.setEmail(email);
         authStore.setUserId(userId);
-        authStore.setProfileImage(profileImage);
         router.push({ name: "home" });
       }
     } catch (error) {
@@ -33,21 +32,17 @@ const authService = {
     try {
       const response = await axios.post(
         "http://localhost:3000/auth/register",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        formData
       );
 
       if (response.status === 200) {
         const { userId, email, name, token, profileImage } = response.data;
         const authStore = useAuthStore();
-        authStore.loginSuccess(name, token); // Adjust this according to your authStore methods
+        //authStore.loginSuccess(name, token);
+        authStore.setName(name);
+        authStore.setToken(token);
         authStore.setEmail(email);
         authStore.setUserId(userId);
-        authStore.setProfileImage(profileImage);
         router.push({ name: "home" }); // Redirect to home after successful registration
       }
     } catch (error) {
