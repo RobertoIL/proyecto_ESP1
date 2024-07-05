@@ -2,11 +2,6 @@
         <Menu as="div" class="relative inline-block text-left">
           <div>
             <MenuButton class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-transparent text-white px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-slate-600">
-              <img
-              :src="`data:image/${profileImageFormat};base64,${profileImage}`"
-              alt="Imagen de Perfil"
-              class="rounded-full object-cover"
-            />
               {{ name }}
               <span class="material-symbols-outlined">keyboard_arrow_down</span>
             </MenuButton>
@@ -33,7 +28,6 @@ import authService from '@/client/services/authService.js';
 const store = useAuthStore();
 
 const name = store.getName;
-const profileImage = store.getProfileImage;
 
 const logout = () => {
   console.log('Cerrando sesión...');

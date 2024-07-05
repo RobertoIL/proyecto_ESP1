@@ -10,7 +10,7 @@
           </div>
           <div class="mb-5">
             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-            <input type="email" id="email" v-model="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="tu@email.com" required>
+            <input type="email" id="email" v-model="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="user@example.com" required>
           </div>
           <div class="mb-5">
             <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
@@ -20,10 +20,7 @@
             <label for="repeat-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmar Contraseña</label>
             <input type="password" id="repeat-password" v-model="repeatPassword" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
           </div>
-          <div class="mb-5">
-            <label for="user_avatar" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Subir imagen de perfil</label>
-            <input type="file" id="user_avatar" @change="handleFileUpload" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
-          </div>
+
           <div class="flex flex-col space-y-4 py-4">
             <router-link class="hover:text-blue-800 underline" to="/login">Ya tengo cuenta</router-link>
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registrar</button>
@@ -36,14 +33,12 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useAuthStore } from '../stores/authStore';
 import authService from '../services/authService';
 
 const name = ref('');
 const email = ref('');
 const password = ref('');
 const repeatPassword = ref('');
-const userAvatar = ref(null);
 
 const register = async () => {
   try {
@@ -51,8 +46,7 @@ const register = async () => {
     formData.append('name', name.value);
     formData.append('email', email.value);
     formData.append('password', password.value);
-    formData.append('repeatPassword', repeatPassword.value);
-    formData.append('avatar', userAvatar.value);
+    //formData.append('repeatPassword', repeatPassword.value);
 
     await authService.register(formData);
     // Handle successful registration, e.g., redirect to login or home page
@@ -62,9 +56,5 @@ const register = async () => {
   }
 };
 
-const handleFileUpload = (event) => {
-  const file = event.target.files[0];
-  userAvatar.value = file;
-};
 
 </script>

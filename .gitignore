@@ -10,6 +10,8 @@ lerna-debug.log*
 .env
 data
 
+uploads
+
 node_modules
 .DS_Store
 dist
