@@ -38,7 +38,7 @@ async function getHistorial(req, res) {
 async function deleteHistorial(req, res) {
   const { userId } = req.params;
   try {
-    await Historial.deleteMany({ User: userId });
+    await Historial.deleteMany({ user: userId });
     res.status(200).json({ message: "Historial deleted" });
   } catch (error) {
     console.error("Error deleting historial:", error);

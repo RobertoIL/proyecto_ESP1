@@ -60,7 +60,8 @@ export default {
     },
     async limpiarHistorial() {
       try {
-        const userId = useAuthStore().getUserId;
+        const store = useAuthStore();
+        const userId = store.getUserId;
         await axios.delete(`http://localhost:3000/historial/${userId}`);
         this.historial = [];
       } catch (error) {
