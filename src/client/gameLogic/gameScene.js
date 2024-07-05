@@ -1,3 +1,5 @@
+import { useAuthStore } from "../stores/authStore";
+
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super({ key: "GameScene" });
@@ -24,21 +26,24 @@ export default class GameScene extends Phaser.Scene {
     );
 
     if (this.rutaP1.includes("Archer") || this.rutaP2.includes("Archer")) {
-      this.load.image("flecha", "../assets/Archer/Flecha.png");
+      this.load.image("flecha", "public/Archer/Flecha.png");
     }
     if (this.rutaP1.includes("Mage") || this.rutaP2.includes("Mage")) {
-      this.load.image("fireball", "../assets/Mage/Fireball2.png");
+      this.load.image("fireball", "public/Mage/Fireball2.png");
     }
+
+    this.nombreJugador1 = useAuthStore().getName;
+    this.nombreJugador2 = "Invitado";
   }
   create() {
-    this.physics.world.setBounds(0, 60, 800, 500);
+    this.physics.world.setBounds(0, 100, 800, 400);
 
     this.player1Sprite = this.physics.add
-      .sprite(0, 0, "player1_walk", this.walk1.total * 2)
+      .sprite(this.cameras.main.width/4, 0, "player1_walk", this.walk1.total * 2)
       .setCollideWorldBounds(true)
       .setInteractive();
     this.player2Sprite = this.physics.add
-      .sprite(200, 0, "player2_walk", this.walk2.total * 2)
+      .sprite(this.cameras.main.width*3/4, 0, "player2_walk", this.walk2.total * 2)
       .setCollideWorldBounds(true)
       .setInteractive();
 
@@ -129,6 +134,12 @@ export default class GameScene extends Phaser.Scene {
     this.hp = [100, 100];
     this.damage = [10, 10];
     this.inmune = [false, false];
+
+    this.temporal = this.add.graphics();
+    this.temporal.fillStyle('#ffffff');
+    this.add.text(30, 5, this.nombreJugador1); 
+    this.add.text(this.cameras.main.width-110, 5, this.nombreJugador2);
+    this.temporal.destroy();
 
     this.player1Sprite.on("animationupdate", (animation, frame) => {
       if (
@@ -444,16 +455,18 @@ export default class GameScene extends Phaser.Scene {
     if (this.hp[0] <= 0) {
       this.hp[0] = 0;
       this.scene.launch("ResultScene", {
-        winner: "Jugador 2",
+        winner: this.nombreJugador2,
         classW: this.player2Class,
+        loser: this.nombreJugador1,
         hp: this.hp[1],
       });
       this.scene.pause();
     } else if (this.hp[1] <= 0) {
       this.hp[1] = 0;
       this.scene.launch("ResultScene", {
-        winner: "Jugador 1",
+        winner: this.nombreJugador1,
         classW: this.player1Class,
+        loser: this.nombreJugador2,
         hp: this.hp[0],
       });
       this.scene.pause();
@@ -837,10 +850,10 @@ export default class GameScene extends Phaser.Scene {
 
     this.drawHealthBar(
       this.healthBar[0],
-      10,
       30,
-      200,
-      20,
+      30,
+      300,
+      30,
       this.hp[0],
       this.maxHp,
       0x00ff00
@@ -848,10 +861,10 @@ export default class GameScene extends Phaser.Scene {
 
     this.drawHealthBar(
       this.healthBar[1],
-      this.cameras.main.width - 210,
+      this.cameras.main.width - 330,
       30,
-      200,
-      20,
+      300,
+      30,
       this.hp[1],
       this.maxHp,
       0x00ff00
@@ -884,6 +897,7 @@ export default class GameScene extends Phaser.Scene {
       graphics.fillStyle(color);
       graphics.fillRect(x, y, width * healthPercentage, height);
     }
+    
   }
   dispararFlecha(player, direction, enemy) {
     let flecha = this.flechas.create(player.x, player.y, "flecha");
