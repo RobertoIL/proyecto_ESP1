@@ -1,5 +1,5 @@
-<template ref="contentToExport">
-    <main class="bg-gray-900 text-slate-200">
+<template>
+    <main ref="contentToExport" class="bg-gray-900 text-slate-200">
         <p class="text-2xl font-bold font-font_tittle text-center p-6">Historial de partidas</p>
         <div class="flex justify-between px-8">
           <button class="flex p-2 items-center justify-center bg-gray-950 rounded-xl hover:bg-gray-800">
@@ -66,13 +66,13 @@ export default {
       const imgData = canvas.toDataURL('image/png');
 
       const pdf = new jsPDF({
-        orientation: 'portrait',
+        orientation: 'landscape',
         unit: 'pt',
         format: [canvas.width, canvas.height]
       });
 
       pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-      pdf.save('download.pdf');
+      pdf.save('historial.pdf');
     }
   }
 };
