@@ -1,15 +1,16 @@
 <template>
-    <main class="flex flex-col items-center bg-home_background">
-        <div class="flex flex-col py-10 space-y-5 w-[600px]">
+    <div class="flex flex-col items-center bg-gray-900">
+        <div class="">
+            <div class="flex flex-col py-10 space-y-5 w-[600px]">
                 <CardCharacter
                 v-for="(character, index) in characters"
                 :key="index"
                 :image="character.image"
                 :name="character.name"
                 :description="character.description"/>
-            </div>
-    </main>
-
+        </div>
+        </div>
+    </div>
 </template>
 <script>
 import CardCharacter from "../components/CardCharacter.vue";
