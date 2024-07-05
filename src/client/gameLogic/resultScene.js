@@ -1,3 +1,6 @@
+import connectDB from "@/server/config/mongo";
+import GResult from "@/server/models/gameResult.model";
+
 export default class ResultScene extends Phaser.Scene{
     constructor(){
         super({key: "ResultScene"});
@@ -14,6 +17,15 @@ export default class ResultScene extends Phaser.Scene{
         graphics.fillRect(0, 0, this.cameras.main.width, this.cameras.main.height);
 
         this.add.text(100, 200, 'Overlay Scene', { fontSize: '32px', fill: '#FFF' });
+
+        guardarResultado({
+            "ganador": this.ganador,
+            "perdedor": "perdedor",
+            "claseGanadora": this.claseGanador,
+            "clasePerdedora": "asd",
+            "tiempo": 100,
+            "hp": this.vidaRestante,
+        });
     }
     update(time, delta){
     }
@@ -21,5 +33,20 @@ export default class ResultScene extends Phaser.Scene{
         this.ganador = data.winner;
         this.claseGanador = data.classW;
         this.vidaRestante = data.hp;
+    }
+}
+async function guardarResultado(data) {
+    try{
+        const nuevoJuego = new GResult({
+            "ganador": data.ganador,
+            "perdedor": data.perdedor,
+            "claseGanadora": data.claseGanador,
+            "clasePerdedora": data.clasePerdedora,
+            "tiempo": data.tiempo,
+            "hp": data.vidaRestante,
+        })
+        await nuevoJuego.save();
+    }catch{
+
     }
 }
